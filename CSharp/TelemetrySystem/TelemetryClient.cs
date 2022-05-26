@@ -2,7 +2,18 @@ using System;
 
 namespace TDDMicroExercises.TelemetrySystem
 {
-    public class TelemetryClient
+    public interface ITelemetryClient
+    {
+        void Connect(string telemetryServerConnectionString);
+        void Disconnect();
+        void Send(string message);
+        string Receive();
+        bool OnlineStatus { get; }
+    }
+
+  
+
+    public class TelemetryClient : ITelemetryClient
     {
         public const string DiagnosticMessage = "AT#UD";
 
@@ -15,6 +26,7 @@ namespace TDDMicroExercises.TelemetrySystem
         {
             get { return _onlineStatus; }
         }
+        // public bool OnlineStatus { get; set; }
 
         public void Connect(string telemetryServerConnectionString)
         {
@@ -88,5 +100,7 @@ namespace TDDMicroExercises.TelemetrySystem
 
             return message;
         }
+
+        
     }
 }
